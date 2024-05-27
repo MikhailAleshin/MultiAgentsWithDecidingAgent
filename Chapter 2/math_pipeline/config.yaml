@@ -1,0 +1,46 @@
+train_path: "train.json"
+test_path: "test.json"
+prompt_to_solve: "Here is task you have to solve: {row}\n\nReasoning:"
+sys_prompt: 'Mistral, you have a challenging math problem that requires your sharpest thinking! Imagine, you are a math teacher. You have to solve math task, do the reasoning before answer. There are examples:'
+cot_bool: True
+device: 'cuda'
+cot_train_list:
+  - 0
+  - 1
+  - 2
+  - 16
+  - 120
+  - 300
+
+cot_list:
+  - "To find out how many students were placed in each group, we need to first subtract the number of students who didn't make the team from the total number of students who tried out. Then, we can divide that result by the number of groups to find the number of students in each group.\n\nTotal students trying out = 64\nStudents not picked for the team = 36\n\nStudents picked for the team = 64 - 36 = 28\n\nNumber of groups = 4\n\nNow, let's divide the number of students picked for the team by the number of groups:\n\nStudents in each group = 28 / 4 = 7\n\nSo, there are 7 students in each group."
+  - "First, we need to find out how many pictures Nancy put into the two separate albums. To do this, we subtract the number of pictures in the first album from the total number of pictures she uploaded:\n\n41 (total pictures) - 37 (pictures in first album) = 4 pictures\n\nNow we know that there are 4 pictures in the two separate albums combined. Since we want to find out how many pictures were in each album, we divide the number of pictures in the two separate albums by the number of separate albums:\n\n4 (pictures in two separate albums) ÷ 2 (separate albums) = 2 pictures per album\n\nSo, there were 2 pictures in each of the two separate albums."
+  - "The magician sold 5 decks - 3 decks = 2 decks during the day.\n\nSince each deck costs 2 dollars, he earned 2 decks * $2/deck = $4 in total."
+  - "The magician sold 12 - 7 = 5 decks.\n5 decks sold for 9 dollars each would earn the magician 5 * 9 = 45 dollars.\nTherefore, the magician earned 45 dollars by selling the magic card decks."
+  - "If Adam earned 9 dollars for each lawn he mowed and he mowed 4 out of the 12 lawns he was supposed to mow (12 - 8), he actually earned:\n4 lawns * 9 dollars = 36 dollars\nTherefore, Adam actually earned 36 dollars."
+  - "First, we need to find out how much money Edward had left after buying the new mower blades. To do this, we subtract the amount he spent on the blades from his total earnings:\n37 (earnings) - 21 (blades) = 16 dollars\n\nNow we know that Edward had 16 dollars left after buying the blades. Since we want to find out how many 2 dollar games he could buy with that money, we divide the amount of money he has left by the price of each game:\n\n16 (money left) ÷ 2 (price of each game) = 8 games\nSo, Edward could buy 8 2 dollar games with the money he had left."
+
+make_reasoning_cot: "Example:\n{question}\n\nReasoning: {cot}\nMy answer: {answer}"
+config_list:
+    - {do_sample: True, temperature: 0.35, top_p: 0.9, max_new_tokens: 700, repetition_penalty: 1.1}
+    - {do_sample: True, temperature: 0.001, top_p: 1., max_new_tokens: 500, repetition_penalty: 1.1}
+    - {do_sample: True, temperature: 0.3, top_p: 0.5, max_new_tokens: 700, repetition_penalty: 1.1}
+    - {do_sample: True, temperature: 0.2, top_p: 0.57, max_new_tokens: 700, repetition_penalty: 1.1}
+    - {do_sample: True, temperature: 0.15, top_p: 0.7, max_new_tokens: 700, repetition_penalty: 1.1}
+agents_answers_path_to_save: 'mistral_5_agent.csv'
+agents_bool_path_to_save: 'mistral_5_agent_bool.csv'
+
+final_agent_config: 
+    - {do_sample: True, temperature: 0.2, top_p: 0.57, max_new_tokens: 700, repetition_penalty: 1.1}
+final_agent_cot: "You are a math teacher. You need to understand which of the answer options is correct for this question.\nTo do this, for each answer, carry out reasoning, and then give your answer. There are four students who solve this problem. Their answer options and how many votes will be given for it.\nMake back method.\nEXAMPLES:\nQUESTION:  The school cafeteria had 23 apples. If they used 20 to make lunch for the students and then bought 6 more, how many apples would they have? \nANSWERS:\nA) 9\nB) 29\nYour reasoning:\nWe know that there were 23 apples at first. Then 20 were taken away. That means that there are now 23-20=3 left. And then 6 more apples were added, so the total number of apples is 3+6=9. So the answer is A.\nMy answer: A\nQUESTION:  A trivia team had 5 members total, but during a game 2 members didn't show up. If each member that did show up scored 6 points, how many points were scored total? \nANSWERS:\nA) 18\nB) 30\nYour reasoning:\nWe know that there were 5 people on the team. Two didn't show up, so only three showed up. Each person got 6 points, so 3*6=18. So the answer is A.\nMy answer: A\nQUESTION:  Faye had 34 coloring books. If she gave away 3 of them, but then bought 48 more, how many would she have total? \nANSWERS:\nA) 82\nB) 49\nC) 79\nYour reasoning:\nWe know that Faye had 34 coloring books at first. She gave away 3, so now she has 34-3=31. Then she bought 48 more, so the total number of coloring books is 31+48=79. So the answer is C.\nMy answer: C\n\n"
+
+path_to_save_final_agent: 'mistral_final_agent.csv'
+test_list: 
+    - 'A'
+    - 'B'
+    - 'C'
+    - 'D'
+    - 'E'
+    - 'F'
+    - 'G'
+    - 'H'
